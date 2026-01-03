@@ -38,9 +38,7 @@ const app = express();
 /**
  * Middleware
  */
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(',').map((s) => s.trim()).filter(Boolean)
-  : [
+const allowedOrigins =  [
       'http://localhost:5173',
       'http://localhost:8080',
       'http://localhost:8081',
@@ -49,7 +47,7 @@ const allowedOrigins = process.env.CORS_ORIGIN
       'http://127.0.0.1:8080',
       'http://127.0.0.1:8081',
       process.env.VITE_API_URL
-    ];
+    ]
 
 const corsOptions = {
   origin: function (origin, callback) {
