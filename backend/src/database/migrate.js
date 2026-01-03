@@ -5,9 +5,9 @@ const migrate = async () => {
   const connection = await mysql.createConnection('mysql://root:eTEVPOygGjwcyYULsqJCGCndoIXuHqmw@yamanote.proxy.rlwy.net:24073/railway');
 
   try {
-    // Create database if not exists
-    await connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME || 'faithstate_db'} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`);
-    await connection.query(`USE ${process.env.DB_NAME || 'faithstate_db'}`);
+    // // Create database if not exists
+    // await connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME || 'faithstate_db'} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`);
+    // await connection.query(`USE ${process.env.DB_NAME || 'faithstate_db'}`);
 
     // Users table
     await connection.query(`

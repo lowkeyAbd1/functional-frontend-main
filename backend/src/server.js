@@ -48,6 +48,7 @@ const allowedOrigins = process.env.CORS_ORIGIN
       'http://127.0.0.1:5173',
       'http://127.0.0.1:8080',
       'http://127.0.0.1:8081',
+      process.env.VITE_API_URL
     ];
 
 const corsOptions = {
