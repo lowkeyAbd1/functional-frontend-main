@@ -2,7 +2,8 @@ require('dotenv').config();
 const mysql = require('mysql2/promise');
 
 const migrate = async () => {
-  const connection = await mysql.createConnection('mysql://root:eTEVPOygGjwcyYULsqJCGCndoIXuHqmw@yamanote.proxy.rlwy.net:24073/railway');
+const connection = await mysql.createConnection(process.env.DATABASE_URL);
+
 
   try {
     // // Create database if not exists
