@@ -38,16 +38,22 @@ const app = express();
 /**
  * Middleware
  */
-const allowedOrigins =  [
-      'http://localhost:5173',
-      'http://localhost:8080',
-      'http://localhost:8081',
-      'http://localhost:3000',
-      'http://127.0.0.1:5173',
-      'http://127.0.0.1:8080',
-      'http://127.0.0.1:8081',
-      process.env.VITE_API_URL
-    ]
+const allowedOrigins = [
+  // local dev
+  "http://localhost:5173",
+  "http://localhost:8080",
+  "http://localhost:8081",
+  "http://localhost:3000",
+  "http://127.0.0.1:5173",
+  "http://127.0.0.1:8080",
+  "http://127.0.0.1:8081",
+
+  // ✅ Railway production frontend
+  "https://faith-realestate.up.railway.app",
+
+  // (optional) if you have another custom domain later, add it here
+];
+
 
 const corsOptions = {
   origin: function (origin, callback) {
