@@ -3,15 +3,25 @@ const mysql = require('mysql2/promise');
 const bcrypt = require('bcryptjs');
 
 const seed = async () => {
-  const connection = await mysql.createConnection({
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 3306,
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'faithstate_db'
-  });
-
+  // Prefer DATABASE_URL (Railway), fallback to DB_* for local development
+  let connection;
+  
   try {
+    if (process.env.DATABASE_URL) {
+      connection = await mysql.createConnection(process.env.DATABASE_URL);
+      console.log("✅ Using DATABASE_URL for seeding");
+    } else {
+      // Local development fallback
+      connection = await mysql.createConnection({
+        host: process.env.DB_HOST || process.env.MYSQLHOST || "localhost",
+        port: process.env.DB_PORT ? Number(process.env.DB_PORT) : (process.env.MYSQLPORT ? Number(process.env.MYSQLPORT) : 3306),
+        user: process.env.DB_USER || process.env.MYSQLUSER || "root",
+        password: process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || "",
+        database: process.env.DB_NAME || process.env.MYSQLDATABASE || "faithstate_db",
+      });
+      console.log("✅ Using DB_HOST/MYSQLHOST for seeding");
+    }
+
     // Seed categories
     await connection.query(`
       INSERT INTO categories (name, description, icon, color) VALUES
@@ -54,9 +64,16 @@ const seed = async () => {
     console.log('✅ Database seeding completed successfully');
   } catch (error) {
     console.error('❌ Seeding error:', error.message);
+    throw error;
   } finally {
-    await connection.end();
+    if (connection) {
+      await connection.end();
+    }
   }
 };
 
-seed();
+// Run seed function
+seed().catch((error) => {
+  console.error('❌ Failed to seed database:', error);
+  process.exit(1);
+});
