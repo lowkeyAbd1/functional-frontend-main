@@ -181,8 +181,7 @@ const AdminStories = () => {
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
-    
-    return `${import.meta.env.VITE_UR}${url}`;
+    return `${import.meta.env.VITE_URL}${url}`;
   };
 
   return (

@@ -253,9 +253,9 @@ const AgentDetails = () => {
                             property.images && Array.isArray(property.images) && property.images.length > 0 && property.images[0]
                               ? (property.images[0].startsWith('http')
                                   ? property.images[0]
-                                  : `${import.meta.env.VITE_API_URL}${property.images[0]}`)
+                                  : `${import.meta.env.VITE_URL}${property.images[0]}`)
                               : property.image 
-                                ? (property.image.startsWith('http') ? property.image : `${import.meta.env.VITE_API_URL}${property.image}`)
+                                ? (property.image.startsWith('http') ? property.image : `${import.meta.env.VITE_URL}${property.image}`)
                                 : 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80'
                           }
                           alt={property.title}
