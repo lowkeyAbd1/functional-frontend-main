@@ -151,7 +151,7 @@ const NewProjectDetails = () => {
                             src={rec.images && rec.images.length > 0
                               ? (rec.images[0].startsWith('http') 
                                   ? rec.images[0] 
-                                  : `http://localhost:5001${rec.images[0]}`)
+                                  : `${import.meta.env.VITE_URL}${rec.images[0]}`)
                               : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80'}
                             alt={rec.name}
                             className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
@@ -293,7 +293,7 @@ const NewProjectDetails = () => {
                     src={project.images && project.images[selectedImageIndex] 
                       ? (project.images[selectedImageIndex].startsWith('http') 
                           ? project.images[selectedImageIndex] 
-                          : `http://localhost:5001${project.images[selectedImageIndex]}`)
+                          : `${import.meta.env.VITE_URL}${project.images[selectedImageIndex]}`)
                       : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80'}
                     alt={project.name}
                     className="w-full h-full object-cover"
@@ -314,7 +314,7 @@ const NewProjectDetails = () => {
                         }`}
                       >
                         <img
-                          src={img.startsWith('http') ? img : `http://localhost:5001${img}`}
+                          src={img.startsWith('http') ? img : `${import.meta.env.VITE_URL}${img}`}
                           alt={`${project.name} ${idx + 1}`}
                           className="w-full h-full object-cover"
                         />

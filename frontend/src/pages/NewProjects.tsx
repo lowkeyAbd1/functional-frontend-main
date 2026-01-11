@@ -340,7 +340,7 @@ const NewProjects = () => {
                             src={project.images && project.images.length > 0
                               ? (project.images[0].startsWith('http') 
                                   ? project.images[0] 
-                                  : `http://localhost:5001${project.images[0]}`)
+                                  : `${import.meta.env.VITE_URL}${project.images[0]}`)
                               : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80'}
                             alt={project.name}
                             className="w-full h-full object-cover"

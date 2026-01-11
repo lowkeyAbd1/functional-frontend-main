@@ -138,7 +138,7 @@ const FeaturedProperties = () => {
                     property.images && property.images.length > 0
                       ? (property.images[0].startsWith('http')
                           ? property.images[0]
-                          : `http://localhost:5001${property.images[0]}`)
+                          : `${import.meta.env.VITE_URL}${property.images[0]}`)
                       : property.image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80'
                   }
                   alt={property.title}

@@ -571,7 +571,7 @@ const AdminPropertyForm = () => {
                   {images.map((img, index) => (
                     <div key={index} className="relative aspect-square rounded-lg overflow-hidden">
                       <img
-                        src={img.startsWith('http') ? img : img.startsWith('data:') ? img : `http://localhost:5001${img}`}
+                        src={img.startsWith('http') ? img : img.startsWith('data:') ? img : `${import.meta.env.VITE_URL}${img}`}
                         alt={`Property ${index + 1}`}
                         className="w-full h-full object-cover"
                       />

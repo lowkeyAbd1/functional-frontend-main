@@ -102,7 +102,7 @@ const AdminProperties = () => {
       const firstImage = property.images[0];
       const url = typeof firstImage === 'string' ? firstImage : (firstImage.url || '');
       if (url) {
-        return url.startsWith('http') ? url : `http://localhost:5001${url}`;
+        return url.startsWith('http') ? url : `${import.meta.env.VITE_URL}${url}`;
       }
     }
     // Handle image_urls (from GROUP_CONCAT)
@@ -110,12 +110,12 @@ const AdminProperties = () => {
       const urls = property.image_urls.split(',');
       if (urls.length > 0 && urls[0]) {
         const url = urls[0].trim();
-        return url.startsWith('http') ? url : `http://localhost:5001${url}`;
+        return url.startsWith('http') ? url : `${import.meta.env.VITE_URL}${url}`;
       }
     }
     // Fallback to property.image or placeholder
     if (property.image) {
-      return property.image.startsWith('http') ? property.image : `http://localhost:5001${property.image}`;
+      return property.image.startsWith('http') ? property.image : `${import.meta.env.VITE_URL}${property.image}`;
     }
     return 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80';
   };

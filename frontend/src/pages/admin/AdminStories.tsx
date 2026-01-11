@@ -181,8 +181,8 @@ const AdminStories = () => {
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
-    const backendUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5001';
-    return `${backendUrl}${url}`;
+    
+    return `${import.meta.env.VITE_UR}${url}`;
   };
 
   return (

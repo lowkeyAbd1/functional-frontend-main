@@ -144,7 +144,7 @@ export const agentService = {
     company?: string;
     is_active?: number;
   }): Promise<ApiResponse<any>> {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+    const apiUrl = import.meta.env.VITE_API_URL ;
     const url = `${apiUrl}/admin/agents`;
     console.log('[AgentService] createAdminAgent URL:', url);
     console.log('[AgentService] createAdminAgent payload:', { ...payload, password: payload.password ? '***' : undefined });
@@ -177,7 +177,7 @@ export const agentService = {
   },
 
   async getProperties(agentId: number): Promise<ApiResponse<Property[]>> {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+    const apiUrl = import.meta.env.VITE_API_URL ;
     const response = await fetch(`${apiUrl}/agents/${agentId}/properties`, {
       headers: authHeaders(),
     });
@@ -616,7 +616,7 @@ export const storiesService = {
       fullUrl: STORIES_ENDPOINTS.CREATE,
       hasFile: data instanceof FormData,
       headers: Object.keys(headers),
-      apiBaseUrl: import.meta.env.VITE_API_URL || 'http://localhost:5001/api'
+      apiBaseUrl: import.meta.env.VITE_API_URL 
     });
 
     const response = await fetch(STORIES_ENDPOINTS.CREATE, {

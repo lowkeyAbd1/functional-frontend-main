@@ -3,7 +3,7 @@
 const envApiUrl = import.meta.env.VITE_API_URL;
 // Use env value directly if provided, otherwise default
 // Don't add /api if it's already in the env variable
-let baseUrl = envApiUrl || 'http://localhost:5001/api';
+let baseUrl = envApiUrl 
 // Normalize: remove trailing slashes, but don't add /api if env already has it
 baseUrl = baseUrl.trim().replace(/\/+$/, '');
 export const API_BASE_URL = baseUrl;

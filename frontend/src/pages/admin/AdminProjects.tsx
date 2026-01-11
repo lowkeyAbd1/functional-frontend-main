@@ -92,7 +92,7 @@ const AdminProjects = () => {
       const firstImage = project.images[0];
       const url = typeof firstImage === 'string' ? firstImage : (firstImage.url || '');
       if (url) {
-        return url.startsWith('http') ? url : `http://localhost:5001${url}`;
+        return url.startsWith('http') ? url : `${import.meta.env.VITE_URL}${url}`;
       }
     }
     return 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80';

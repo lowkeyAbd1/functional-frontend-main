@@ -441,7 +441,7 @@ const AdminProjectForm = () => {
                   {images.map((img, index) => (
                     <div key={index} className="relative group">
                       <img
-                        src={img.startsWith('data:') ? img : `http://localhost:5001${img}`}
+                        src={img.startsWith('data:') ? img : `${import.meta.env.VITE_URL}${img}`}
                         alt={`Preview ${index + 1}`}
                         className="w-full h-32 object-cover rounded-lg"
                       />

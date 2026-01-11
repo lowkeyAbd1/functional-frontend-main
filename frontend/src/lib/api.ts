@@ -2,9 +2,9 @@
  * API fetch wrapper with automatic token handling
  */
 
-// Ensure VITE_API_URL is set to http://localhost:5001/api in .env file
+
 const envApiUrl = import.meta.env.VITE_API_URL;
-const API_BASE_URL = envApiUrl || 'http://localhost:5001/api';
+const API_BASE_URL = envApiUrl 
 
 // Debug log to verify API URL (only in development)
 if (import.meta.env.DEV) {
