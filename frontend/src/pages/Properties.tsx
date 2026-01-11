@@ -445,9 +445,9 @@ const Properties = () => {
                         property.images && Array.isArray(property.images) && property.images.length > 0 && property.images[0]
                           ? (property.images[0].startsWith('http')
                               ? property.images[0]
-                              : `http://localhost:5001${property.images[0]}`)
+                              : `${process.env.VITE_API_URL}${property.images[0]}`)
                           : property.image 
-                            ? (property.image.startsWith('http') ? property.image : `http://localhost:5001${property.image}`)
+                            ? (property.image.startsWith('http') ? property.image : `${process.env.VITE_API_URL}${property.image}`)
                             : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80'
                       }
                       alt={property.title}
