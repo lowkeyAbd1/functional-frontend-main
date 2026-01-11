@@ -45,7 +45,7 @@ const Properties = () => {
     if (baths) params.set('baths', baths);
     setSearchParams(params, { replace: true });
   }, [purpose, type, location, minPrice, maxPrice, beds, baths, setSearchParams]);
-
+  console.error("VITE URL:", import.meta.env.VITE_URL);
   // Safe image parser helper - handles all cases
   const parseImages = (property: any): string[] => {
     try {
@@ -98,6 +98,7 @@ const Properties = () => {
         let response;
         try {
           response = await propertyServicePublic.getAll(filters);
+          
           console.log('[Properties] API Response type:', typeof response);
           console.log('[Properties] API Response:', response);
         } catch (apiError: any) {
@@ -433,6 +434,7 @@ const Properties = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {displayProperties.map((property) => (
+
                 <Link
                   key={property.id}
                   to={`/properties/${property.slug || property.id}`}
@@ -442,12 +444,10 @@ const Properties = () => {
                   <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
                     <img
                       src={
-                        property.images && Array.isArray(property.images) && property.images.length > 0 && property.images[0]
-                          ? (property.images[0].startsWith('http')
-                              ? property.images[0]
-                              : `${process.env.VITE_URL}${property.images[0]}`)
+                        property.images && Array.isArray(property.images) && property.images.length > 0 
+                          ? `${import.meta.env.VITE_URL}${property.images[0]}`
                           : property.image 
-                            ? (property.image.startsWith('http') ? property.image : `${process.env.VITE_URL}${property.image}`)
+                            ?  `${import.meta.env.VITE_URL}${property.image}`
                             : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80'
                       }
                       alt={property.title}
