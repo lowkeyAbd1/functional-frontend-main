@@ -27,7 +27,7 @@ export const getAgentImageUrl = (agent: { profile_photo?: string | null; image?:
   // This handles paths like /uploads/agents/ayub.jpg exactly as stored in DB
   if (imageUrl.startsWith('/uploads/')) {
     console.log('Constructing full URL for agent image:', imageUrl);
-    return `${import.meta.env.VITE_API_URL}${imageUrl}`;
+    return `${import.meta.env.VITE_URL}${imageUrl}`;
   }
 
   // Reject Windows paths (C:\, file://, etc.) - use default instead
