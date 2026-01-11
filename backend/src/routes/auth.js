@@ -88,13 +88,18 @@ router.post('/login', [
 
     const { email, password } = req.body;
 
-    // Find user
+    // Safe debugging logs (no secrets)
+    console.log('[LOGIN] Attempting login for email:', email);
+    console.log('[LOGIN] DB Config - Host:', process.env.DB_HOST || 'localhost', '| DB:', process.env.DB_NAME || 'faithstate_db');
+
+    // Find user - login validates ONLY email and password, NOT role
     const [users] = await pool.query(
       'SELECT * FROM users WHERE email = ?',
       [email]
     );
 
     if (users.length === 0) {
+      console.log('[LOGIN] User not found for email:', email);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password'
@@ -102,15 +107,44 @@ router.post('/login', [
     }
 
     const user = users[0];
+    console.log('[LOGIN] User found - ID:', user.id, '| Name:', user.name, '| Role:', user.role || 'NULL');
 
-    // Check password
+    // Defensive check: Verify password hash format (bcrypt hashes start with $2a$ or $2b$)
+    // This detects corrupted passwords from manual DB edits (e.g., truncated to "a0")
+    const isBcryptHash = user.password && (
+      user.password.startsWith('$2a$') || 
+      user.password.startsWith('$2b$') ||
+      user.password.startsWith('$2y$')
+    );
+    
+    console.log('[LOGIN] Password hash format valid:', isBcryptHash, '| Hash length:', user.password ? user.password.length : 0);
+    
+    if (!isBcryptHash) {
+      console.log('[LOGIN] Password hash corrupted for user ID:', user.id, '| Hash value:', user.password ? user.password.substring(0, 10) + '...' : 'NULL');
+      return res.status(401).json({
+        success: false,
+        message: 'Password corrupted. Please reset password.'
+      });
+    }
+
+    // Check password - this is the ONLY authentication check
+    // Login validates ONLY email + password, NOT role
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
+      console.log('[LOGIN] Password mismatch for user ID:', user.id);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password'
       });
     }
+
+    console.log('[LOGIN] Password verified successfully for user ID:', user.id);
+
+    // Safely handle role - default to 'user' if NULL or invalid
+    // Role is NOT required for authentication, only for authorization
+    const userRole = user.role && ['user', 'agent', 'admin'].includes(user.role) 
+      ? user.role 
+      : 'user';
 
     // Generate token
     const token = jwt.sign(
@@ -119,6 +153,8 @@ router.post('/login', [
       { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
     );
 
+    console.log('[LOGIN] Login successful for user ID:', user.id, '| Role:', userRole);
+
     res.json({
       success: true,
       token,
@@ -126,10 +162,13 @@ router.post('/login', [
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role
+        role: userRole
       }
     });
   } catch (error) {
+    console.error('[LOGIN] Error during login:', error.message);
+    console.error('[LOGIN] Error code:', error.code);
+    console.error('[LOGIN] SQL Message:', error.sqlMessage);
     next(error);
   }
 });

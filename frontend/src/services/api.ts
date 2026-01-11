@@ -1,5 +1,5 @@
 import { AUTH_ENDPOINTS, PROPERTY_ENDPOINTS, AGENT_ENDPOINTS, CONTACT_ENDPOINTS, CATEGORY_ENDPOINTS, SERVICE_ENDPOINTS, PROJECT_ENDPOINTS, NEW_PROJECT_ENDPOINTS, ADMIN_PROJECT_ENDPOINTS, PROPERTY_ENDPOINTS_PUBLIC, ADMIN_PROPERTY_ENDPOINTS, STORIES_ENDPOINTS } from '@/config/api';
-import type { Property, Agent, Category, ContactForm, AuthResponse, ApiResponse, User, Service, Project, Story } from '@/types';
+import type { Property, Agent, Category, ContactForm, AuthResponse, ApiResponse, User, Service, Project, Story, Contact } from '@/types';
 import type { Project as NewProject, PaymentMilestone } from '@/types/project';
 
 // Helper to get auth token
