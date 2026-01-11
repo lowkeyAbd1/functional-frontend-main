@@ -26,8 +26,8 @@ export const getAgentImageUrl = (agent: { profile_photo?: string | null; image?:
   // If it's a relative path starting with /uploads/, prepend backend base URL
   // This handles paths like /uploads/agents/ayub.jpg exactly as stored in DB
   if (imageUrl.startsWith('/uploads/')) {
-    const backendUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5001';
-    return `${backendUrl}${imageUrl}`;
+    console.log('Constructing full URL for agent image:', imageUrl);
+    return `${import.meta.env.VITE_API_URL}${imageUrl}`;
   }
 
   // Reject Windows paths (C:\, file://, etc.) - use default instead

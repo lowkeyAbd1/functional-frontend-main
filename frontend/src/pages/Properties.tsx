@@ -516,7 +516,7 @@ const Properties = () => {
                             <img
                               src={property.agent_photo.startsWith('http') 
                                 ? property.agent_photo 
-                                : `http://localhost:5001${property.agent_photo}`}
+                                : `${import.meta.env.VITE_URL}${property.agent_photo}`}
                               alt={property.agent_name}
                               className="w-6 h-6 rounded-full object-cover border border-border"
                               onError={(e) => {

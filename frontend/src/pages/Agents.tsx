@@ -59,7 +59,7 @@ const Agents = () => {
 
     return name.includes(q) || specialty.includes(q) || title.includes(q);
   });
-
+  console.log('Filtered Agents:', filteredAgents);
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
