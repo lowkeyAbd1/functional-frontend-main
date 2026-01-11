@@ -152,9 +152,7 @@ const PropertyDetails = () => {
               <div>
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
                   <img
-                    src={images[selectedImageIndex]?.startsWith('http') 
-                      ? images[selectedImageIndex] 
-                      : `http://localhost:5001${images[selectedImageIndex]}`}
+                    src={`${import.meta.env.VITE_URL}${images[selectedImageIndex]}`}
                     alt={property.title}
                     className="w-full h-full object-cover"
                   />
@@ -182,7 +180,7 @@ const PropertyDetails = () => {
                         } hover:border-primary/50 transition-colors`}
                       >
                         <img
-                          src={img.startsWith('http') ? img : `http://localhost:5001${img}`}
+                          src={ `${import.meta.env.VITE_URL}${img}`}
                           alt={`${property.title} thumbnail ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
@@ -300,9 +298,7 @@ const PropertyDetails = () => {
                   >
                     {property.agent_photo && (
                       <img
-                        src={property.agent_photo.startsWith('http') 
-                          ? property.agent_photo 
-                          : `http://localhost:5001${property.agent_photo}`}
+                        src={`${import.meta.env.VITE_URL}${property.agent_photo}`}
                         alt={property.agent_name}
                         className="w-16 h-16 rounded-full object-cover border-2 border-primary/20"
                         onError={(e) => {
