@@ -115,7 +115,7 @@ const PropertyDetails = () => {
       </div>
     );
   }
-
+  console.log('Property Data:', property);
   const images = property.images && property.images.length > 0 
     ? property.images 
     : property.image 
